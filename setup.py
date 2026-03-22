@@ -6,10 +6,10 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 __version__ = "0.0.0"
 
-REPO_NAME = "Text-Summarizer"
-AUTHOR_USER_NAME = "entbappy"
+REPO_NAME = "TEXT-SUMMARISER"        # ← your repo name
+AUTHOR_USER_NAME = "nitinth001"       # ← your GitHub username
 SRC_REPO = "textSummarizer"
-AUTHOR_EMAIL = "entbappy73@gmail.com"
+AUTHOR_EMAIL = "your_email@gmail.com" # ← your email
 
 
 
