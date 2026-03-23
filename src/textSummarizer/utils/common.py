@@ -5,15 +5,24 @@ from box import ConfigBox
 from box.exceptions import BoxValueError
 from pathlib import Path
 from typing import Any
+from ensure import ensure_annotations
+import chardet
 
+@ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
     try:
-        with open(path_to_yaml) as yaml_file:
+        # Detect encoding first
+        with open(path_to_yaml, "rb") as f:
+            raw = f.read()
+            detected = chardet.detect(raw)
+            encoding = detected["encoding"] or "utf-8"
+        
+        with open(path_to_yaml, encoding=encoding) as yaml_file:
             content = yaml.safe_load(yaml_file)
+            if content is None:
+                raise ValueError("yaml file is empty")
             logger.info(f"yaml file: {path_to_yaml} loaded successfully")
             return ConfigBox(content)
-    except BoxValueError:
-        raise ValueError("yaml file is empty")
     except Exception as e:
         raise e
 
